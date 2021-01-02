@@ -1,0 +1,11 @@
+http:
+  routers:
+    apache:
+      rule: "Host(`server.nginx.app.test`)"
+      service: apache-service
+
+  services:
+    apache-service:   
+      loadBalancer:
+        servers:
+          - url: "http://127.0.0.1"

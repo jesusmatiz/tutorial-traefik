@@ -1,0 +1,28 @@
+api:
+  insecure: false
+
+entrypoints:
+  web:
+    address: ":80"
+  websecurity:
+    address: ":443"
+
+providers:
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+  
+  file:
+    filename: /config.yml
+
+certificatesResolvers:
+  myresolver:
+    acme:
+      email: "jesus.matiz.prog@gmail.com"
+      storage: /acme.json
+      httpChallenge:
+        entrypoint: web
+
+log:
+  filePath: "/traefik.log"        
+  level: ERROR
+  format: json

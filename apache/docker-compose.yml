@@ -1,0 +1,16 @@
+version: '3.8'
+services: 
+  apache: # service name (unique)
+    image: php:7.2-apache    
+    labels: 
+      - "traefik.http.routers.apache.rule=Host(`apache.app.test`)"
+      - "traefik.http.routers.traefik.entrypoints=websecurity"
+      - "traefik.http.routers.traefik.tls.certresolver=myresolver"
+    volumes: 
+      - ./php/:/var/www/html
+    networks: 
+      traefik_network:
+networks: 
+  traefik_network:
+    name: traefik_net
+    driver: bridge

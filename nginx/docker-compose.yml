@@ -1,0 +1,14 @@
+version: '3.8'
+services: 
+  nginx: # services name (unique)
+    image: nginx:alpine
+    labels: 
+      - "traefik.http.routers.nginx.rule=Host(`nginx.app.test`)"
+      - "traefik.http.routers.traefik.entrypoints=websecurity"
+      - "traefik.http.routers.traefik.tls.certresolver=myresolver"
+    networks: 
+      traefik_network:
+networks: 
+  traefik_network:
+    name: traefik_net
+    driver: bridge

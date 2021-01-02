@@ -1,0 +1,28 @@
+version: '3.8'
+services: 
+  traefik: # apache.app.test - nginx.app.test
+    image: traefik:v2.3.6
+    labels: 
+      - "traefik.http.routers.api.rule=Host(`app.test`)"
+      - "traefik.http.routers.api.service=api@internal"
+      - "traefik.http.routers.api.middlewares=auth"
+      - "traefik.http.middlewares.auth.basicauth.users=admin:{SHA}fEqNCco3Yq9h5ZUglD3CZJT4lBs="
+      - "traefik.http.routers.traefik.entrypoints=websecurity"
+      - "traefik.http.routers.traefik.tls.certresolver=myresolver"
+    ports: 
+      - 80:80
+      - 443:443
+    volumes: 
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./traefik.yml:/traefik.yml
+      - ./acme.json:/acme.json
+      - ./traefik.log:/traefik.log
+      - ./config.yml:/config.yml
+    networks: 
+      traefik_network:
+networks: 
+  traefik_network:
+    name: traefik_net
+    driver: bridge
+    ipam: 
+      driver: default      
