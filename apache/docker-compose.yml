@@ -4,8 +4,8 @@ services:
     image: php:7.2-apache    
     labels: 
       - "traefik.http.routers.apache.rule=Host(`apache.app.test`)"
-      - "traefik.http.routers.traefik.entrypoints=websecurity"
-      - "traefik.http.routers.traefik.tls.certresolver=myresolver"
+      - "traefik.http.routers.apache.entrypoints=websecurity"
+      - "traefik.http.routers.apache.tls.certresolver=myresolver"
     volumes: 
       - ./php/:/var/www/html
     networks: 
