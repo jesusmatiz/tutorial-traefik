@@ -4,8 +4,8 @@ services:
     image: nginx:alpine
     labels: 
       - "traefik.http.routers.nginx.rule=Host(`nginx.app.test`)"
-      - "traefik.http.routers.traefik.entrypoints=websecurity"
-      - "traefik.http.routers.traefik.tls.certresolver=myresolver"
+      - "traefik.http.routers.nginx.entrypoints=websecurity"
+      - "traefik.http.routers.nginx.tls.certresolver=myresolver"
     networks: 
       traefik_network:
 networks: 
